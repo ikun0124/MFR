@@ -1,0 +1,110 @@
+dataset:
+  name: traffic
+  format: traffic_2d_flow
+  create_validation_set: false
+  dataset_root: /home/lian/data/xd_work/ktrans/data/dataset/IDS2017
+  train_data_dir: Train_8_10000_data_radius4.npy
+  train_label_dir: Train_10_10000_label.npy
+  valid_data_dir: None
+  valid_label_dir: None
+  test_data_dir: Test_8_10000_data_radius4.npy
+  test_label_dir: Test_10_10000_label.npy
+  flow_num: 8
+  train_batch_size: 128
+  test_batch_size: 128
+  inference_batch_size: 128
+  num_workers: 8
+
+  # add for fix bug, no grammatical meaning
+  task: classification
+  test_split_mode: from_dir
+  image_size: 40
+
+model:
+  name: mfad
+  latent_vec_size: 120
+  n_features: 64
+  extra_layers: 0
+  add_final_conv: true
+  early_stopping:
+    patience: 5
+    metric: image_AUROC
+    mode: max
+  lr: 0.0001
+  beta1: 0.5
+  beta2: 0.999
+  wadv: 1
+  wcon: 60
+  wlat: 1
+  normalization_method: none
+
+metrics:
+  image:
+  - F1Score
+  - AUROC
+  - Accuracy
+  - Precision
+  - Recall
+  threshold:
+    method: adaptive #options: [adaptive, manual]
+    manual_image:
+
+visualization:
+  show_images: false # show images on the screen
+  save_images: false # save images to the file system
+  log_images: false # log images to the available loggers (if any)
+  image_save_path:      # path to which images will be saved
+  mode: full # options: ["full", "simple"]
+
+project:
+  seed: 42
+  path: ./results
+
+logging:
+  logger: [csv] # options: [comet, tensorboard, wandb, csv] or combinations.
+  log_graph: false # Logs the model graph to respective logger.
+
+optimization:
+  export_mode:
+
+# PL Trainer Args. Don't add extra parameter here.
+trainer:
+  enable_checkpointing: true
+  default_root_dir:
+  gradient_clip_val: 0
+  gradient_clip_algorithm: norm
+  num_nodes: 1
+  devices: 1
+  enable_progress_bar: true
+  overfit_batches: 0.0
+  track_grad_norm: -1
+  check_val_every_n_epoch: 2 # Don't validate before extracting features.
+  fast_dev_run: false
+  accumulate_grad_batches: 1
+  max_epochs: 100
+  max_steps: -1
+  min_steps:
+  max_time:
+  limit_train_batches: 1.0
+  limit_val_batches: 1.0
+  limit_test_batches: 1.0
+  limit_predict_batches: 1.0
+  val_check_interval: 1.0 # Don't validate before extracting features.
+  log_every_n_steps: 50
+  accelerator: auto # <"cpu", "gpu", "tpu", "ipu", "hpu", "auto">
+  strategy:
+  sync_batchnorm: false
+  precision: 32
+  enable_model_summary: true
+  num_sanity_val_steps: 0
+  profiler:
+  benchmark: false
+  deterministic: false
+  reload_dataloaders_every_n_epochs: 0
+  auto_lr_find: false
+  replace_sampler_ddp: true
+  detect_anomaly: false
+  auto_scale_batch_size: false
+  plugins:
+  move_metrics_to_cpu: false
+  multiple_trainloader_mode: max_size_cycle
