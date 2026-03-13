@@ -1,25 +1,47 @@
-## Introduction
-[**MFR**](https://www.sciencedirect.com/science/article/abs/pii/S003132032400966X), included by *Pattern Recognition'2025*, is a novel semi-supervised anomaly detection framework for network traffic based on **M**ulti-**F**requency **R**econstruction manner. It aims to employ simple yet effective data extraction to enhance traffic modeling from frequency domain. This repository contains the corresponding source code for model implementation. **Note**: The filter technique described in paper is not included in the model code. Please ensure that this implementation is introduced during data preprocessing.
+# Semi-supervised anomaly traffic detection via multi-frequency reconstruction
 
-## Datasets
+---
+
+## 🧩 Overview
+**We are the first to reveal that traffic images contain rich high-frequency information and exhibit irregular pixel distributions. To address this issue, we propose MFR, which introduces low-pass filters to extract regular patterns and texture features, and employs a channel–spatial attention enhanced autoencoder to better capture spatio-temporal characteristics of traffic data.**
+
+📄 **Published in:** Pattern Recognition (PR), 2025  
+🔗 **Paper:** [Paper Link](https://www.sciencedirect.com/science/article/abs/pii/S003132032400966X)
+
+---
+
+## ⚙️ Pipeline
+
+<p align="center">
+  <img src="Model.png" width="50%" />
+</p
+
+---
+
+## 📚 Datasets
 - DataCon2020 dataset is collected from https://datacon.qianxin.com/opendata. 
 - CIC-IDS2017 dataset is downloaded from https://www.unb.ca/cic/datasets/ids-2017.html. 
 - USTC-TFC2016 dataset is downloaded from https://github.com/echowei/DeepTraffic.
 
-## Pipeline
-![xx](./Model.png)
 
-## Requirement
+---
+
+## 🏃‍♀️ Requirement
 **Hardware** : NVIDIA GeForce RTX 3090 GPU.  
 **Software** : Ubuntu 18.04 LTS + Python 3.9 + Pytorch 1.8.
 
-## Code Architecture
+---
+
+## 📦 Code Architecture
 - Our model architecture is stored in model.py, which can be easily embedded into your projects.
 - The corresponding loss is stored in loss.py.
 
-## Citation
-😀 If you use or are inspired from this work please cite:
-```
+---
+
+## 📌 Citation
+
+If you find this work useful, please cite us:
+```bibtex
 @article{lian2025semi,
 title = {Semi-supervised anomaly traffic detection via multi-frequency reconstruction},
 author = {Xinglin Lian and Yu Zheng and Zhangxuan Dang and Chunlei Peng and Xinbo Gao},
